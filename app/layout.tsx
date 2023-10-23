@@ -1,8 +1,10 @@
 /* eslint-disable camelcase */
 import React from "react";
-import type { Metadata } from "next";
-import { Inter, Space_Grotesk } from "next/font/google";
 import { ClerkProvider } from "@clerk/nextjs";
+import { Inter, Space_Grotesk } from "next/font/google";
+import type { Metadata } from "next";
+
+import "./globals.css";
 import { ThemeProvider } from "@/context/ThemeProvider";
 
 const inter = Inter({
@@ -18,7 +20,7 @@ const spaceGrotesk = Space_Grotesk({
 });
 
 export const metadata: Metadata = {
-  title: "Dev Overflow",
+  title: "DevFlow",
   description:
     "A community-driven platform for asking and answering programming questions. Get help, share knowledge, and collaborate with developers from around the world. Explore topics in web development, mobile app development, algorithms, data structures, and more.",
   icons: {
