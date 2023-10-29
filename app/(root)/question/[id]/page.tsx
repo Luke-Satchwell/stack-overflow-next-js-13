@@ -13,7 +13,7 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
-const QuestionDetailPage = async ({ params, searchParams }: URLProps) => {
+const Page = async ({ params, searchParams }: URLProps) => {
   const { userId: clerkId } = auth();
 
   let mongoUser;
@@ -23,6 +23,7 @@ const QuestionDetailPage = async ({ params, searchParams }: URLProps) => {
   }
 
   const result = await getQuestionById({ questionId: params.id });
+
   return (
     <>
       <div className="flex-start w-full flex-col">
@@ -112,4 +113,4 @@ const QuestionDetailPage = async ({ params, searchParams }: URLProps) => {
   );
 };
 
-export default QuestionDetailPage;
+export default Page;

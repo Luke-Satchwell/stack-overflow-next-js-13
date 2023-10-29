@@ -28,6 +28,7 @@ const AnswerCard = ({
   upvotes,
   createdAt,
 }: Props) => {
+
   return (
     <Link
       href={`/question/${question._id}/#${_id}`}

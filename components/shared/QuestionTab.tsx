@@ -1,23 +1,23 @@
-import React from "react";
-import { SearchParamsProps } from "@/types";
-import { getUserQuestions } from "@/lib/actions/user.action";
-import QuestionCard from "../cards/QuestionCard";
+import { getUserQuestions } from '@/lib/actions/user.action';
+import { SearchParamsProps } from '@/types'
+import React from 'react'
+import QuestionCard from '../cards/QuestionCard';
 
 interface Props extends SearchParamsProps {
   userId: string;
   clerkId?: string | null;
 }
 
-const QuestionTab = async ({ searchParams, userId, clerkId }: Props) => {
+const QuestionTab = async ({ searchProps, userId, clerkId }: Props) => {
   const result = await getUserQuestions({
     userId,
     page: 1,
-  });
+  })
 
   return (
     <>
       {result.questions.map((question) => (
-        <QuestionCard
+        <QuestionCard 
           key={question._id}
           _id={question._id}
           clerkId={clerkId}
@@ -31,7 +31,7 @@ const QuestionTab = async ({ searchParams, userId, clerkId }: Props) => {
         />
       ))}
     </>
-  );
-};
+  )
+}
 
-export default QuestionTab;
+export default QuestionTab

@@ -1,36 +1,26 @@
-"use server";
+"use server"
 
 import User from "@/database/user.model";
 import { connectToDatabase } from "../mongoose";
-import {
-  GetAllTagsParams,
-  GetQuestionsByTagIdParams,
-  GetTopInteractedTagsParams,
-} from "./shared.types";
+import { GetAllTagsParams, GetQuestionsByTagIdParams, GetTopInteractedTagsParams } from "./shared.types";
 import Tag, { ITag } from "@/database/tag.model";
 import Question from "@/database/question.model";
 import { FilterQuery } from "mongoose";
 
-export async function getTopInteracted(params: GetTopInteractedTagsParams) {
+export async function getTopInteractedTags(params: GetTopInteractedTagsParams) {
   try {
     connectToDatabase();
 
     const { userId } = params;
 
-    // get user
     const user = await User.findById(userId);
 
-    if (!user) throw new Error("User not found");
+    if(!user) throw new Error("User not found");
 
-    // find interactions for user and group by tags
+    // Find interactions for the user and group by tags...
+    // Interaction...
 
-    // interaction
-
-    return [
-      { _id: "1", name: "tag" },
-      { _id: "2", name: "tag" },
-      { _id: "3", name: "tag" },
-    ];
+    return [ {_id: '1', name: 'tag'}, {_id: '2', name: 'tag2'}]
   } catch (error) {
     console.log(error);
     throw error;
@@ -40,12 +30,10 @@ export async function getTopInteracted(params: GetTopInteractedTagsParams) {
 export async function getAllTags(params: GetAllTagsParams) {
   try {
     connectToDatabase();
-    // const { page = 1, pageSize = 20, filter, searchQuery } = params;
 
-    // get tags
     const tags = await Tag.find({});
 
-    return { tags };
+    return { tags }
   } catch (error) {
     console.log(error);
     throw error;
@@ -56,35 +44,35 @@ export async function getQuestionsByTagId(params: GetQuestionsByTagIdParams) {
   try {
     connectToDatabase();
 
-    // eslint-disable-next-line no-unused-vars
     const { tagId, page = 1, pageSize = 10, searchQuery } = params;
 
-    const tagFilter: FilterQuery<ITag> = { _id: tagId };
+    const tagFilter: FilterQuery<ITag> = { _id: tagId};
 
     const tag = await Tag.findOne(tagFilter).populate({
-      path: "questions",
+      path: 'questions',
       model: Question,
       match: searchQuery
-        ? { title: { $regex: searchQuery, $options: "i" } }
+        ? { title: { $regex: searchQuery, $options: 'i' }}
         : {},
       options: {
         sort: { createdAt: -1 },
       },
       populate: [
-        { path: "tags", model: Tag, select: "_id name" },
-        { path: "author", model: User, select: "_id clerkId name picture" },
-      ],
-    });
+        { path: 'tags', model: Tag, select: "_id name" },
+        { path: 'author', model: User, select: '_id clerkId name picture'}
+      ]
+    })
 
-    if (!tag) {
-      throw new Error("Tag not found");
+    if(!tag) {
+      throw new Error('Tag not found');
     }
 
-    console.log(tag);
-
+    console.log(tag)
+    
     const questions = tag.questions;
 
     return { tagTitle: tag.name, questions };
+
   } catch (error) {
     console.log(error);
     throw error;
