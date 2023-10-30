@@ -3,7 +3,6 @@ import React from 'react'
 import { ClerkProvider } from '@clerk/nextjs'
 import { Inter, Space_Grotesk } from 'next/font/google'
 import type { Metadata } from 'next';
->>>>>>> 93430ab3ee4faf1459baa789c7171c7ffb77077f
 
 import './globals.css';
 import '../styles/prism.css';
